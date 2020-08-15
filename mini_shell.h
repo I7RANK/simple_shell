@@ -12,10 +12,10 @@
 #include <sys/wait.h>
 
 /**
- * struct path - struct path
- * @s: it's the string
- * @next: it's the next node
- */
+* struct path - struct path
+* @s: it's the string
+* @next: it's the next node
+*/
 typedef struct path
 {
 	char *s;
@@ -28,5 +28,6 @@ path_st *create_linkedlist_path(char *path);
 void _new_node(char *s, path_st **head);
 path_st *create_node(char *s);
 void free_PATH(path_st *head);
+char *_getenv(const char *name);
 
 #endif /* MINI_SHELL_H */
