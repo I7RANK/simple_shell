@@ -1,5 +1,7 @@
 #include "mini_shell.h"
 
+char *_getenv(const char *name);
+
 /**
  * _print_PATH - print each directory passed as argument. one per line
  * @path: it's the path
@@ -127,4 +129,35 @@ void free_PATH(path_st *head)
 		free(head->s);
 		free(head);
 	}
+}
+
+/**
+ * _getenv - gets the value of an environment variable
+ * @name: it's the name of the environment variable to find
+ * Return: the value or NULL if not found
+ */
+char *_getenv(const char *name)
+{
+	char **p, *str;
+	int i = 0, j = 0;
+
+	for (p = __environ; *p; p++, i++)
+	{
+		str = *p;
+		if (str[0] == name[0])
+		{
+			for (j = 0; str[j] != '='; j++)
+			{
+				if (str[j] != name[j])
+				{
+					break;
+				}
+			}
+			if (str[j] == '=')
+			{
+				return (&str[j + 1]);
+			}
+		}
+	}
+	return (NULL);
 }
