@@ -5,8 +5,7 @@ char *_getenv(const char *name);
 /**
  * _print_PATH - print each directory passed as argument. one per line
  * @path: it's the path
- *
- * Return: na
+ * Return: header
 */
 path_st *create_linkedlist_path(char *path)
 {
@@ -50,7 +49,7 @@ path_st *create_linkedlist_path(char *path)
  * _new_node - creates a new node in the linked list
  * @s: the string to save in the node
  * @head: it's the header of the linked list
- * Return na
+ * Return void
 */
 void _new_node(char *s, path_st **head)
 {
@@ -78,7 +77,6 @@ void _new_node(char *s, path_st **head)
 /**
  * create_node - creates and initializes a new node
  * @s: the string to initializes the new node
- *
  * Return: a pointer of the new node of NULL if fail
 */
 path_st *create_node(char *s)
@@ -118,9 +116,8 @@ path_st *create_node(char *s)
 /**
  * free_PATH - frees a listint_t list
  * @head: is the header of the linked list
- *
- * Return: na
- */
+ * Return: void
+*/
 void free_PATH(path_st *head)
 {
 	if (head)
@@ -135,7 +132,7 @@ void free_PATH(path_st *head)
  * _getenv - gets the value of an environment variable
  * @name: it's the name of the environment variable to find
  * Return: the value or NULL if not found
- */
+*/
 char *_getenv(const char *name)
 {
 	char **p, *str;
