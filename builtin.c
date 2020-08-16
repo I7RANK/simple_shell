@@ -4,12 +4,12 @@ int _strcmp(char *s1, char *s2);
 
 /**
  * find_builtin - function to find built-in
- * argv: arguments to enter
- * built-names: names of the built-in
- * c: counter variable
- * n: pointer to name of the executable without /
+ * @argv: arguments to enter
+ * @built_names: names of the built-in
+ * @c: counter variable
+ * @n: pointer to name of the executable without /
  * Return: 0
- */
+*/
 int find_builtin(char **argv, built_in *built_names, int c, char *n)
 {
 	int i;
@@ -21,14 +21,18 @@ int find_builtin(char **argv, built_in *built_names, int c, char *n)
 			return (built_names[i].func(argv, c, n));
 		}
 	}
+	(void)c;
+	(void)n;
 	return (0);
 }
 
 /**
  * mini_exit - function to implement exit built-in
- * argv: arguments
- * Return: 0
- */
+ * @argv: arguments
+ * @c: the conter to errors
+ * @n: the name of this program
+ * Return: 0 or other number if fails
+*/
 int mini_exit(char **argv, int c, char *n)
 {
 	int status = 0, i;
@@ -48,9 +52,18 @@ int mini_exit(char **argv, int c, char *n)
 			status = status * 10 + (argv[1][i] - '0');
 		}
 	}
+	(void)c;
+	(void)n;
 	exit(status);
 }
 
+/**
+ * mini_env - prints the environment variables of this program
+ * @argv: arguments
+ * @c: the conter to errors
+ * @n: the name of this program
+ * Return: 0 or other number if fails
+*/
 int mini_env(char **argv, int c, char *n)
 {
 	int i;
@@ -60,23 +73,27 @@ int mini_env(char **argv, int c, char *n)
 		printf("%s: %s: No such file or directory\n", argv[0], argv[1]);
 		return (-1);
 	}
-
 	for (i = 0; __environ[i] != NULL; i++)
 	{
 		printf("%s\n", __environ[i]);
 	}
-
+	(void)c;
+	(void)n;
 	return (1);
 }
 
 /**
  * mini_cd - function to implement cd built-in
- * argv: arguments
- * Return: 0
- */
+ * @argv: arguments
+ * @c: the conter to errors
+ * @n: the name of this program
+ * Return: 0 or other number if fails
+*/
 int mini_cd(char **argv, int c, char *n)
 {
 	(void)argv;
+	(void)c;
+	(void)n;
 	return (-1);
 }
 
@@ -86,7 +103,7 @@ int mini_cd(char **argv, int c, char *n)
  * @s1: is the first string to comparate
  * @s2: is the second string to comparate
  * Return: returns one integer
- */
+*/
 int _strcmp(char *s1, char *s2)
 {
 	int counter;
