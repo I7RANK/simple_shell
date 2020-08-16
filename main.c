@@ -19,6 +19,13 @@ int main(int argc, char **argv)
 	char *buff_line = NULL, *myname = NULL;
 	int status, err_count = 0;
 
+	built_in declare_builtin[] = {
+		{"exit", mini_exit},
+		{"env", mini_env},
+		{"cd", mini_cd},
+		{NULL, NULL}
+	};
+
 	myname = save_name(argv[0]);
 	header_PATH = create_linkedlist_path(_getenv("PATH"));
 
@@ -40,21 +47,22 @@ int main(int argc, char **argv)
 		}
 		set_argv(argv, buff_line);
 
-		/* build-in */
-
 		if (argv[0] != NULL)
 		{
-			if (fork() == 0)
+			/* build-in */
+			if (find_builtin(argv, declare_builtin, err_count, myname) == 0)
 			{
-				if (execute_execve(header_PATH, argv) != 0)
+				if (fork() == 0)
 				{
-					print_error(err_count, myname, argv[0]);
+					if (execute_execve(header_PATH, argv) != 0)
+					{
+						print_error(err_count, myname, argv[0]);
+					}
 				}
 			}
 		}
 		wait(&status);
 	}
-	(void)status;
 	(void)argc;
 	return (0);
 }
@@ -104,7 +112,7 @@ int execute_execve(path_st *header, char *const argv[])
  * Description: with the string obtained in the getline() function
  * @argv: it's the array of pointer to fill
  * @buff: it's the string teken by getline()
- * Return: nothing
+ * Return: void
  */
 void set_argv(char **argv, char *buff)
 {
