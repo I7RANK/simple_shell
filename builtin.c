@@ -176,4 +176,3 @@ void print_error(int count, char *name, char *command)
 	printf("%s: %d: %s: not found\n", name, count, command);
 	exit(127);
 }
-'
