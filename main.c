@@ -173,7 +173,6 @@ char *save_name(char *src)
  */
 void print_error(int count, char *name, char *command)
 {
-	int i, rem, len = 0, n;
 	char scount[150];
 
 	tostring(scount, count);
