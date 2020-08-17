@@ -152,7 +152,7 @@ char *save_name(char *src)
 	dest = malloc(sizeof(char) * i + 1);
 	if (dest == NULL)
 	{
-		printf("Error in memory allocation");
+		_puts("Error in memory allocation\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -173,6 +173,16 @@ char *save_name(char *src)
  */
 void print_error(int count, char *name, char *command)
 {
-	printf("%s: %d: %s: not found\n", name, count, command);
+	int i, rem, len = 0, n;
+	char scount[150];
+
+	tostring(scount, count);
+	_puts(name);
+	_puts(": ");
+	_puts(scount);
+	_puts(": ");
+	_puts(command);
+	_puts(": not found\n");
+
 	exit(127);
 }
