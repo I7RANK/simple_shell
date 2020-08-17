@@ -9,7 +9,7 @@ int _strcmp(char *s1, char *s2);
  * @c: counter variable
  * @n: pointer to name of the executable without /
  * Return: 0
-*/
+ */
 int find_builtin(char **argv, built_in *built_names, int c, char *n)
 {
 	int i;
@@ -29,13 +29,15 @@ int find_builtin(char **argv, built_in *built_names, int c, char *n)
 /**
  * mini_exit - function to implement exit built-in
  * @argv: arguments
- * @c: the conter to errors
+ * @c: the counter to errors
  * @n: the name of this program
  * Return: 0 or other number if fails
-*/
+ */
+
 int mini_exit(char **argv, int c, char *n)
 {
 	int status = 0, i;
+	char cstring[120];
 
 	if (argv[1] != NULL)
 	{
@@ -43,7 +45,15 @@ int mini_exit(char **argv, int c, char *n)
 		{
 			if (argv[1][i] < 48 || argv[1][i] > 57)
 			{
-				printf("%s: %d: exit: Illegal number: %s\n", n, c, argv[1]);
+				tostring(cstring, c);
+				_puts(n);
+				_puts(": ");
+				_puts(cstring);
+				_puts(": ");
+				_puts("exit: Illegal number: ");
+				_puts(argv[1]);
+				_puts("\n");
+
 				return (-1);
 			}
 		}
@@ -55,7 +65,7 @@ int mini_exit(char **argv, int c, char *n)
 	(void)c;
 	(void)n;
 	exit(status);
-}
+} 
 
 /**
  * mini_env - prints the environment variables of this program
@@ -63,19 +73,24 @@ int mini_exit(char **argv, int c, char *n)
  * @c: the conter to errors
  * @n: the name of this program
  * Return: 0 or other number if fails
-*/
+ */
 int mini_env(char **argv, int c, char *n)
 {
 	int i;
 
 	if (argv[1] != NULL)
 	{
-		printf("%s: %s: No such file or directory\n", argv[0], argv[1]);
+		_puts(argv[0]);
+		_puts(": ");
+		_puts(argv[1]);
+		_puts(": No such file or directory\n");
+	
 		return (-1);
 	}
 	for (i = 0; __environ[i] != NULL; i++)
 	{
-		printf("%s\n", __environ[i]);
+		_puts(__environ[i]);
+		_puts("\n");
 	}
 	(void)c;
 	(void)n;
@@ -88,7 +103,7 @@ int mini_env(char **argv, int c, char *n)
  * @c: the conter to errors
  * @n: the name of this program
  * Return: 0 or other number if fails
-*/
+ */
 int mini_cd(char **argv, int c, char *n)
 {
 	(void)argv;
@@ -103,7 +118,7 @@ int mini_cd(char **argv, int c, char *n)
  * @s1: is the first string to comparate
  * @s2: is the second string to comparate
  * Return: returns one integer
-*/
+ */
 int _strcmp(char *s1, char *s2)
 {
 	int counter;

@@ -15,7 +15,7 @@
  * struct path - struct path
  * @s: it's the string
  * @next: it's the next node
-*/
+ */
 typedef struct path
 {
 	char *s;
@@ -26,7 +26,7 @@ typedef struct path
  * struct built - the struct to the built-ins
  * @name: the name of the built-in
  * @func: the function to the built-in
-*/
+ */
 typedef struct built
 {
 	char *name;
@@ -46,5 +46,9 @@ int mini_exit(char **argv, int c, char *n);
 int mini_cd(char **argv, int c, char *n);
 int mini_env(char **argv, int c, char *n);
 int find_builtin(char **argv, built_in *built_names, int c, char *n);
+
+/* _puts.c */
+int _puts(char *str);
+char *tostring(char *scount, int count);
 
 #endif /* MINI_SHELL_H */
