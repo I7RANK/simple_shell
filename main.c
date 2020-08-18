@@ -1,7 +1,7 @@
 #include "mini_shell.h"
 
 int execute_execve(path_st *header, char *const argv[]);
-void set_argv(char **argv, char *buff);
+void set_argv(char **argv, char *buff, const char *delim);
 char *save_name(char *src);
 void print_error(int count, char *name, char *command);
 
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 				write(1, "\n", 1);
 			exit(EXIT_SUCCESS);
 		}
-		set_argv(argv, buff_line);
+		set_argv(argv, buff_line, " \t");
 
 		if (argv[0] != NULL)
 		{
@@ -114,26 +114,49 @@ int execute_execve(path_st *header, char *const argv[])
  * @buff: it's the string teken by getline()
  * Return: void
  */
-void set_argv(char **argv, char *buff)
+void set_argv(char **argv, char *buff, const char *delim)
 {
-	char *token = NULL;
-	int i;
+	int i, j, conargv = 0;
+	char *token = buff;
 
 	for (i = 0; buff[i]; i++)
 	{}
-	buff[i - 1] = '\0';
-
-	token = strtok(buff, " \t");
-
-	for (i = 0; token != NULL; i++)
+	if (buff[i - 1] == '\n')
 	{
-		argv[i] = token;
-		token = strtok(NULL, " \t");
+		buff[i - 1] = '\0';
 	}
 
-	free(token);
-
-	argv[i] = NULL;
+	for (i = 0; buff[i]; i++)
+	{
+		if (token == NULL)
+		{
+			token = &buff[i];
+		}
+		for (j = 0; delim[j]; j++)
+		{
+			if (buff[i] == delim[j])
+			{
+				buff[i] = '\0';
+				if (token[0] != '\0')
+				{
+					argv[conargv] = token;
+					conargv++;
+					token = NULL;
+				}
+				else
+				{
+					token = NULL;
+				}
+			}
+			if (buff[i + 1] == '\0')
+			{
+				argv[conargv] = token;
+				
+			}
+		}
+	}
+	conargv++;
+	argv[conargv] = NULL;
 }
 
 /**
