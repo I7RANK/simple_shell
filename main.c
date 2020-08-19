@@ -25,9 +25,10 @@ int main(int argc, char **argv)
 		{"cd", mini_cd},
 		{NULL, NULL}
 	};
-	
-	tofree_st tofree[] = 
-	{{&header_PATH, &buff_line, &myname}};
+
+	tofree_st tofree[] = {
+		{&header_PATH, &buff_line, &myname}
+	};
 
 	myname = save_name(argv[0]);
 	header_PATH = create_linkedlist_path(_getenv("PATH"));
@@ -114,6 +115,7 @@ int execute_execve(path_st *header, char *const argv[])
  * Description: with the string obtained in the getline() function
  * @argv: it's the array of pointer to fill
  * @buff: it's the string teken by getline()
+ * @delim: is the delimiter to the @buff
  * Return: void
  */
 void set_argv(char **argv, char *buff, const char *delim)
@@ -153,7 +155,6 @@ void set_argv(char **argv, char *buff, const char *delim)
 			if (buff[i + 1] == '\0')
 			{
 				argv[conargv] = token;
-				
 			}
 		}
 	}

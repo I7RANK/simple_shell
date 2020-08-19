@@ -24,9 +24,9 @@ typedef struct path
 
 /**
  * struct _free - struct that will have the pointers to free
- * @header_PATH: linked list that will have the PATH
- * @buff_line: string set by get line
- * @mynane: the name of this program
+ * @f_header_PATH: linked list that will have the PATH
+ * @f_buff_line: string set by get line
+ * @f_myname: the name of this program
 */
 typedef struct _free
 {
