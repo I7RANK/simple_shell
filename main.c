@@ -1,23 +1,19 @@
 #include "mini_shell.h"
 
-int execute_execve(path_st *header, char *const argv[]);
-void set_argv(char **argv, char *buff, const char *delim);
-char *save_name(char *src);
-void print_error(int count, char *name, char *command);
-
 /**
  * main - main function
  * @argc: number of arguments but for now not passed arguments
  * @argv: the array of pointers to fill with set_argv
  * Return: 0
  */
-int main(int argc, char **argv)
+int main(int argc, char **argv) /* nombre del programa y + na */
 {
 	path_st *header_PATH = NULL;
 	ssize_t sizes = 0;
 	size_t BUFF1024 = 0;
 	char *buff_line = NULL, *myname = NULL;
 	int status, err_count = 0;
+	char **arguments = NULL;
 
 	built_in declare_builtin[] = {
 		{"exit", mini_exit},
@@ -30,8 +26,10 @@ int main(int argc, char **argv)
 	tofree.f_buff_line = &buff_line;
 	tofree.f_header_PATH = &header_PATH;
 	tofree.f_myname = &myname;
+	tofree.f_arguments = &arguments;
 
-	myname = save_name(argv[0]);
+	arguments = init_arguments();
+	/* myname = save_name(argv[0]); */
 	header_PATH = create_linkedlist_path(_getenv("PATH"));
 
 	while (1)
@@ -42,31 +40,29 @@ int main(int argc, char **argv)
 		sizes = getline(&buff_line, &BUFF1024, stdin);
 		if (sizes == -1)
 		{
-			free_PATH(tofree.f_header_PATH[0]);
-			free(tofree.f_buff_line[0]);
-			free(tofree.f_myname[0]);
+			free_all(tofree);
 
 			if (isatty(STDIN_FILENO))
 				write(1, "\n", 1);
 			exit(EXIT_SUCCESS);
 		}
-		set_argv(argv, buff_line, " \t");
-
-		if (argv[0] != NULL)
+		set_argv(arguments, buff_line, " \t");
+		if (arguments[0] != NULL)
 		{
-			if (find_builtin(argv, declare_builtin, err_count, tofree) == 0)
+			if (find_builtin(arguments, declare_builtin, err_count, tofree, argv[0]) == 0)
 			{
 				if (fork() == 0)
 				{
-					if (execute_execve(header_PATH, argv) != 0)
+					if (execute_execve(header_PATH, arguments) != 0)
 					{
-						print_error(err_count, myname, argv[0]);
+						print_error(err_count, argv[0], arguments[0]);
 					}
 				}
 			}
 		}
 		wait(&status);
 	}
+	(void)myname;
 	(void)argc;
 	return (0);
 }
@@ -119,7 +115,7 @@ int execute_execve(path_st *header, char *const argv[])
  * @delim: is the delimiter to the @buff
  * Return: void
  */
-void set_argv(char **argv, char *buff, const char *delim)
+void set_argv(char **arguments, char *buff, const char *delim)
 {
 	int i, j, conargv = 0;
 	char *token = buff;
@@ -144,7 +140,7 @@ void set_argv(char **argv, char *buff, const char *delim)
 				buff[i] = '\0';
 				if (token[0] != '\0')
 				{
-					argv[conargv] = token;
+					arguments[conargv] = token;
 					conargv++;
 					token = NULL;
 				}
@@ -155,12 +151,12 @@ void set_argv(char **argv, char *buff, const char *delim)
 			}
 			if (buff[i + 1] == '\0')
 			{
-				argv[conargv] = token;
+				arguments[conargv] = token;
 			}
 		}
 	}
 	conargv++;
-	argv[conargv] = NULL;
+	arguments[conargv] = NULL;
 }
 
 /**
