@@ -1,4 +1,5 @@
 #include "mini_shell.h"
+
 /**
  * _puts - function to print string
  * @str: string to print
@@ -22,7 +23,6 @@ int _puts(char *str)
  * @count: int to convert to string
  * Return: string
  */
-
 char *tostring(char *scount, int count)
 {
 	int i, rem, len = 0, n;

@@ -1,7 +1,7 @@
 #include "mini_shell.h"
 
 int execute_execve(path_st *header, char *const argv[]);
-void set_argv(char **argv, char *buff);
+void set_argv(char **argv, char *buff, const char *delim);
 char *save_name(char *src);
 void print_error(int count, char *name, char *command);
 
@@ -26,6 +26,10 @@ int main(int argc, char **argv)
 		{NULL, NULL}
 	};
 
+	tofree_st tofree[] = {
+		{&header_PATH, &buff_line, &myname}
+	};
+
 	myname = save_name(argv[0]);
 	header_PATH = create_linkedlist_path(_getenv("PATH"));
 
@@ -37,20 +41,19 @@ int main(int argc, char **argv)
 		sizes = getline(&buff_line, &BUFF1024, stdin);
 		if (sizes == -1)
 		{
-			free_PATH(header_PATH);
-			free(buff_line);
-			free(myname);
+			free_PATH(tofree->f_header_PATH[0]);
+			free(tofree->f_buff_line[0]);
+			free(tofree->f_myname[0]);
 
 			if (isatty(STDIN_FILENO))
 				write(1, "\n", 1);
 			exit(EXIT_SUCCESS);
 		}
-		set_argv(argv, buff_line);
+		set_argv(argv, buff_line, " \t");
 
 		if (argv[0] != NULL)
 		{
-			/* build-in */
-			if (find_builtin(argv, declare_builtin, err_count, myname) == 0)
+			if (find_builtin(argv, declare_builtin, err_count, tofree[0]) == 0)
 			{
 				if (fork() == 0)
 				{
@@ -112,28 +115,51 @@ int execute_execve(path_st *header, char *const argv[])
  * Description: with the string obtained in the getline() function
  * @argv: it's the array of pointer to fill
  * @buff: it's the string teken by getline()
+ * @delim: is the delimiter to the @buff
  * Return: void
  */
-void set_argv(char **argv, char *buff)
+void set_argv(char **argv, char *buff, const char *delim)
 {
-	char *token = NULL;
-	int i;
+	int i, j, conargv = 0;
+	char *token = buff;
 
 	for (i = 0; buff[i]; i++)
 	{}
-	buff[i - 1] = '\0';
-
-	token = strtok(buff, " \t");
-
-	for (i = 0; token != NULL; i++)
+	if (buff[i - 1] == '\n')
 	{
-		argv[i] = token;
-		token = strtok(NULL, " \t");
+		buff[i - 1] = '\0';
 	}
 
-	free(token);
-
-	argv[i] = NULL;
+	for (i = 0; buff[i]; i++)
+	{
+		if (token == NULL)
+		{
+			token = &buff[i];
+		}
+		for (j = 0; delim[j]; j++)
+		{
+			if (buff[i] == delim[j])
+			{
+				buff[i] = '\0';
+				if (token[0] != '\0')
+				{
+					argv[conargv] = token;
+					conargv++;
+					token = NULL;
+				}
+				else
+				{
+					token = NULL;
+				}
+			}
+			if (buff[i + 1] == '\0')
+			{
+				argv[conargv] = token;
+			}
+		}
+	}
+	conargv++;
+	argv[conargv] = NULL;
 }
 
 /**
@@ -173,7 +199,6 @@ char *save_name(char *src)
  */
 void print_error(int count, char *name, char *command)
 {
-	int i, rem, len = 0, n;
 	char scount[150];
 
 	tostring(scount, count);
