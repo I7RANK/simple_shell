@@ -10,7 +10,7 @@ int _strcmp(char *s1, char *s2);
  * @n: pointer to name of the executable without /
  * Return: 0
  */
-int find_builtin(char **argv, built_in *built_names, int c, char *n)
+int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree)
 {
 	int i;
 
@@ -18,11 +18,10 @@ int find_builtin(char **argv, built_in *built_names, int c, char *n)
 	{
 		if (_strcmp(built_names[i].name, argv[0]) == 0)
 		{
-			return (built_names[i].func(argv, c, n));
+			return (built_names[i].func(argv, c, tofree));
 		}
 	}
 	(void)c;
-	(void)n;
 	return (0);
 }
 
@@ -33,8 +32,7 @@ int find_builtin(char **argv, built_in *built_names, int c, char *n)
  * @n: the name of this program
  * Return: 0 or other number if fails
  */
-
-int mini_exit(char **argv, int c, char *n)
+int mini_exit(char **argv, int c, tofree_st tofree)
 {
 	int status = 0, i;
 	char cstring[120];
@@ -46,7 +44,7 @@ int mini_exit(char **argv, int c, char *n)
 			if (argv[1][i] < 48 || argv[1][i] > 57)
 			{
 				tostring(cstring, c);
-				_puts(n);
+				_puts(tofree.f_myname[0]);
 				_puts(": ");
 				_puts(cstring);
 				_puts(": ");
@@ -62,8 +60,9 @@ int mini_exit(char **argv, int c, char *n)
 			status = status * 10 + (argv[1][i] - '0');
 		}
 	}
-	(void)c;
-	(void)n;
+	free_PATH(tofree.f_header_PATH[0]);
+	free(tofree.f_buff_line[0]);
+	free(tofree.f_myname[0]);
 	exit(status);
 } 
 
@@ -74,7 +73,7 @@ int mini_exit(char **argv, int c, char *n)
  * @n: the name of this program
  * Return: 0 or other number if fails
  */
-int mini_env(char **argv, int c, char *n)
+int mini_env(char **argv, int c, tofree_st tofree)
 {
 	int i;
 
@@ -93,7 +92,7 @@ int mini_env(char **argv, int c, char *n)
 		_puts("\n");
 	}
 	(void)c;
-	(void)n;
+	(void)tofree;
 	return (1);
 }
 
@@ -104,11 +103,11 @@ int mini_env(char **argv, int c, char *n)
  * @n: the name of this program
  * Return: 0 or other number if fails
  */
-int mini_cd(char **argv, int c, char *n)
+int mini_cd(char **argv, int c, tofree_st tofree)
 {
 	(void)argv;
 	(void)c;
-	(void)n;
+	(void)tofree;
 	return (-1);
 }
 
