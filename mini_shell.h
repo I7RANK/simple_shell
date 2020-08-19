@@ -27,7 +27,8 @@ typedef struct path
  * @f_header_PATH: linked list that will have the PATH
  * @f_buff_line: string set by get line
  * @f_myname: the name of this program
-*/
+ * @f_arguments: the arguments to free
+ */
 typedef struct _free
 {
 	path_st **f_header_PATH;
@@ -48,6 +49,12 @@ typedef struct built
 } built_in;
 
 /* ========== PROTOTYPES ========== */
+/* main.c */
+int execute_execve(path_st *header, char *const argv[]);
+void set_argv(char **argv, char *buff, const char *delim);
+char *save_name(char *src);
+void print_error(int count, char *name, char *command);
+
 /* create_linked.c */
 path_st *create_linkedlist_path(char *path);
 void _new_node(char *s, path_st **head);
@@ -60,6 +67,7 @@ int mini_exit(char **argv, int c, tofree_st tofree, char *n);
 int mini_cd(char **argv, int c, tofree_st tofree, char *n);
 int mini_env(char **argv, int c, tofree_st tofree, char *n);
 int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree, char *n);
+int _strcmp(char *s1, char *s2);
 
 /* _puts.c */
 int _puts(char *str);
@@ -74,3 +82,4 @@ char **init_arguments(void);
 void free_all(tofree_st tofree);
 
 #endif /* MINI_SHELL_H */
+

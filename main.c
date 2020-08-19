@@ -1,17 +1,12 @@
 #include "mini_shell.h"
 
-int execute_execve(path_st *header, char *const argv[]);
-void set_argv(char **argv, char *buff, const char *delim);
-char *save_name(char *src);
-void print_error(int count, char *name, char *command);
-
 /**
  * main - main function
  * @argc: number of arguments but for now not passed arguments
  * @argv: the array of pointers to fill with set_argv
  * Return: 0
  */
-int main(int argc, char **argv)
+int main(int argc, char **argv) /* nombre del programa y + na */
 {
 	path_st *header_PATH = NULL;
 	ssize_t sizes = 0;
