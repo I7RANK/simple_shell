@@ -60,9 +60,7 @@ int mini_exit(char **argv, int c, tofree_st tofree)
 			status = status * 10 + (argv[1][i] - '0');
 		}
 	}
-	free_PATH(tofree.f_header_PATH[0]);
-	free(tofree.f_buff_line[0]);
-	free(tofree.f_myname[0]);
+	free_all(tofree);
 	exit(status);
 }
 

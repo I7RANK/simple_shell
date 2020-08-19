@@ -33,6 +33,7 @@ typedef struct _free
 	path_st **f_header_PATH;
 	char **f_buff_line;
 	char **f_myname;
+	char ***f_arguments;
 } tofree_st;
 
 /**
@@ -63,5 +64,13 @@ int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree);
 /* _puts.c */
 int _puts(char *str);
 char *tostring(char *scount, int count);
+
+
+/* THE OTHERS */
+/* init_arguments.c */
+char **init_arguments(void);
+
+/* free_all.c */
+void free_all(tofree_st tofree);
 
 #endif /* MINI_SHELL_H */
