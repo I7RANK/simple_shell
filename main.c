@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 	tofree.f_arguments = &arguments;
 
 	arguments = init_arguments();
-	myname = save_name(argv[0]);
+	/* myname = save_name(argv[0]); */
 	header_PATH = create_linkedlist_path(_getenv("PATH"));
 
 	while (1)
@@ -54,19 +54,20 @@ int main(int argc, char **argv)
 		set_argv(arguments, buff_line, " \t");
 		if (arguments[0] != NULL)
 		{
-			if (find_builtin(arguments, declare_builtin, err_count, tofree) == 0)
+			if (find_builtin(arguments, declare_builtin, err_count, tofree, argv[0]) == 0)
 			{
 				if (fork() == 0)
 				{
 					if (execute_execve(header_PATH, arguments) != 0)
 					{
-						print_error(err_count, myname, arguments[0]);
+						print_error(err_count, argv[0], arguments[0]);
 					}
 				}
 			}
 		}
 		wait(&status);
 	}
+	(void)myname;
 	(void)argc;
 	return (0);
 }
