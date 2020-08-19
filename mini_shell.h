@@ -24,15 +24,16 @@ typedef struct path
 
 /**
  * struct _free - struct that will have the pointers to free
- * @header_PATH: linked list that will have the PATH
- * @buff_line: string set by get line
- * @mynane: the name of this program
+ * @f_header_PATH: linked list that will have the PATH
+ * @f_buff_line: string set by get line
+ * @f_myname: the name of this program
 */
 typedef struct _free
 {
 	path_st **f_header_PATH;
 	char **f_buff_line;
 	char **f_myname;
+	char ***f_arguments;
 } tofree_st;
 
 /**
@@ -43,7 +44,7 @@ typedef struct _free
 typedef struct built
 {
 	char *name;
-	int (*func)(char **argv, int c, tofree_st tofree);
+	int (*func)(char **argv, int c, tofree_st tofree, char *n);
 } built_in;
 
 /* ========== PROTOTYPES ========== */
@@ -55,13 +56,21 @@ void free_PATH(path_st *head);
 char *_getenv(const char *name);
 
 /* builtin.c */
-int mini_exit(char **argv, int c, tofree_st tofree);
-int mini_cd(char **argv, int c, tofree_st tofree);
-int mini_env(char **argv, int c, tofree_st tofree);
-int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree);
+int mini_exit(char **argv, int c, tofree_st tofree, char *n);
+int mini_cd(char **argv, int c, tofree_st tofree, char *n);
+int mini_env(char **argv, int c, tofree_st tofree, char *n);
+int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree, char *n);
 
 /* _puts.c */
 int _puts(char *str);
 char *tostring(char *scount, int count);
+
+
+/* THE OTHERS */
+/* init_arguments.c */
+char **init_arguments(void);
+
+/* free_all.c */
+void free_all(tofree_st tofree);
 
 #endif /* MINI_SHELL_H */

@@ -1,0 +1,68 @@
+./" Manpage for simple_shell
+.TH hsh 1 "August 21st, 2020" "1.0" "simple_shell man"
+.SH NAME
+hsh - Simple command-line interpreter UNIX.
+.SH SYNOPSIS
+./hsh [options] [file]
+.SH DESCRIPTION
+.B ./hsh
+A Unix shell is a command-line interpreter or shell that provides a command line user interface for Unix-like operating systems.
+This shell was inspired by the first UNIX shell created by Ken Thompson.
+hsh was developed in Ubuntu 16.04 LTS, compiled with GCC 4.8.4.
+.br
+.SH Invocation:
+Invocate the shell in interactive mode by executing the command:
+.br
+.&
+.RS
+&$ ./hsh.
+.br
+A prompt
+will appear and the user may begin entering commands and executing them by pressing "Enter".
+.br
+Alternatively, a command can be entered and then piped into ./hsh. For example:
+.br
+.&
+&$ echo "hello world" | ./hsh
+.br
+.SH BUILTINS
+The following builtin commands are supported:
+.br
+.br
+.B env
+- prints the environment
+.br
+.&
+.B exit
+- exits the program
+.br
+.SH RETURN VALUE
+Always 0 for success and other number if fails.
+.br
+.SH PATH
+It will look inside all directions in PATH env variable for executable.
+.br
+.SH OPTIONS
+.B simple_shell
+Command options will be typed after the main command followed by a space and a '-' symbol.
+.br
+.SH EXAMPLES
+.br
+[command] [options]
+$ ls -l
+.br
+.SH SEE ALSO
+.I peerlearning(2), projectbased(2), fullstack(2), Betty(1)
+.br
+.SH BUGS
+Single space required after argument.
+.br
+.SH AUTHORS
+.br
+Written by:
+.br
+.B Francisco Guzmán - 1802@holbertonschool.com
+.br
+.B Silena Restrepo - 1961@holbertonschool.com
+.br
+.B Lilibeth Tabares - 1762@holbertonschool.com
