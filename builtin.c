@@ -106,6 +106,30 @@ int mini_env(char **argv, int c, char *n)
  */
 int mini_cd(char **argv, int c, char *n)
 {
+	int dir_value = 0;
+
+	if (_strcmp(argv[0], "cd") == 0)
+	{
+		if (!argv[1])
+		{
+			dir_value = chdir("..");
+			if (dir_value != 0)
+			{
+				printf("Error changing directory\n");
+				return (1);
+			}
+			return (1);
+		}
+
+		dir_value = chdir(argv[1]);
+
+		if (dir_value != 0)
+		{
+			printf("%s: %s: No such file or directory\n", argv[0], argv[1]);
+			return (1);
+		}
+		return (1);
+	}
 	(void)argv;
 	(void)c;
 	(void)n;
