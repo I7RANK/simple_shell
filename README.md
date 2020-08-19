@@ -19,17 +19,19 @@ This project is meant to recreat a shell (mini shell) with some of the concepts,
 
 ### Some of the system calls and functions used in this project:
 
-execve
-exit
-fork
-free
-getline
-isatty
-malloc
-perror
-strtok
-wait
-write
+<ul>
+<li> execve </li>
+<li> exit </li>
+<li> fork </li>
+<li> free </li>
+<li> getline </li>
+<li> isatty </li>
+<li> malloc </li>
+<li> perror </li>
+<li> strtok </li>
+<li> wait </li>
+<li> write </li>
+</ul>
 
 ------------
 
@@ -77,9 +79,9 @@ write
 
 
 ### Authors
-Silena Restrepo [Twitter](https://twitter.com/silenarestrepo_"link title") :hibiscus:
-Francisco Guzmán [Twitter](https://twitter.com/I7RANKI"link title") :cat2:
-Lilibeth Tabares [Twitter](https://twitter.com/LilibethTabares"link title") :sunflower:
+- Silena Restrepo [https://twitter.com/silenarestrepo_] :hibiscus:
+- Francisco Guzmán [https://twitter.com/I7RANKI] :cat2:
+- Lilibeth Tabares [https://twitter.com/LilibethTabares] :sunflower:
 
 
 ------------
