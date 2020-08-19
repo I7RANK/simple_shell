@@ -1,5 +1,9 @@
 #include "mini_shell.h"
 
+/*
+ * init_arguments - function to set memory to arguments
+ * Return: arguments
+*/
 char **init_arguments(void)
 {
 	char **arguments = NULL;

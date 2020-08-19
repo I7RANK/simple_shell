@@ -1,7 +1,5 @@
 #include "mini_shell.h"
 
-int _strcmp(char *s1, char *s2);
-
 /**
  * find_builtin - function to find built-in
  * @argv: arguments to enter
