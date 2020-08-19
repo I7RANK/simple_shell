@@ -1,7 +1,5 @@
 #include "mini_shell.h"
 
-char *_getenv(const char *name);
-
 /**
  * _print_PATH - print each directory passed as argument. one per line
  * @path: it's the path
@@ -10,7 +8,7 @@ char *_getenv(const char *name);
 path_st *create_linkedlist_path(char *path)
 {
 	path_st *header = NULL;
-	char *token, *cp_path;
+	char *token = NULL, *cp_path = NULL;
 	int i, j;
 
 	if (path == NULL)
@@ -21,7 +19,7 @@ path_st *create_linkedlist_path(char *path)
 	for (j = 0; path[j]; j++)
 	{}
 
-	cp_path = malloc(sizeof(char) * j);
+	cp_path = malloc(sizeof(char) * 1024);
 	if (path == NULL)
 	{
 		return (NULL);

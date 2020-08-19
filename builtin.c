@@ -1,16 +1,14 @@
 #include "mini_shell.h"
 
-int _strcmp(char *s1, char *s2);
-
 /**
  * find_builtin - function to find built-in
  * @argv: arguments to enter
  * @built_names: names of the built-in
  * @c: counter variable
- * @n: pointer to name of the executable without /
+ * @tofree: the struct that has de pointers to free
  * Return: 0
  */
-int find_builtin(char **argv, built_in *built_names, int c, char *n)
+int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree, char *n)
 {
 	int i;
 
@@ -18,11 +16,10 @@ int find_builtin(char **argv, built_in *built_names, int c, char *n)
 	{
 		if (_strcmp(built_names[i].name, argv[0]) == 0)
 		{
-			return (built_names[i].func(argv, c, n));
+			return (built_names[i].func(argv, c, tofree, n));
 		}
 	}
 	(void)c;
-	(void)n;
 	return (0);
 }
 
@@ -30,11 +27,10 @@ int find_builtin(char **argv, built_in *built_names, int c, char *n)
  * mini_exit - function to implement exit built-in
  * @argv: arguments
  * @c: the counter to errors
- * @n: the name of this program
+ * @tofree: the struct that has de pointers to free
  * Return: 0 or other number if fails
  */
-
-int mini_exit(char **argv, int c, char *n)
+int mini_exit(char **argv, int c, tofree_st tofree, char *n)
 {
 	int status = 0, i;
 	char cstring[120];
@@ -62,19 +58,18 @@ int mini_exit(char **argv, int c, char *n)
 			status = status * 10 + (argv[1][i] - '0');
 		}
 	}
-	(void)c;
-	(void)n;
+	free_all(tofree);
 	exit(status);
-} 
+}
 
 /**
  * mini_env - prints the environment variables of this program
  * @argv: arguments
  * @c: the conter to errors
- * @n: the name of this program
+ * @tofree: the struct that has de pointers to free
  * Return: 0 or other number if fails
  */
-int mini_env(char **argv, int c, char *n)
+int mini_env(char **argv, int c, tofree_st tofree, char *n)
 {
 	int i;
 
@@ -84,7 +79,6 @@ int mini_env(char **argv, int c, char *n)
 		_puts(": ");
 		_puts(argv[1]);
 		_puts(": No such file or directory\n");
-	
 		return (-1);
 	}
 	for (i = 0; __environ[i] != NULL; i++)
@@ -92,8 +86,9 @@ int mini_env(char **argv, int c, char *n)
 		_puts(__environ[i]);
 		_puts("\n");
 	}
-	(void)c;
 	(void)n;
+	(void)c;
+	(void)tofree;
 	return (1);
 }
 
@@ -101,14 +96,15 @@ int mini_env(char **argv, int c, char *n)
  * mini_cd - function to implement cd built-in
  * @argv: arguments
  * @c: the conter to errors
- * @n: the name of this program
+ * @tofree: the struct that has de pointers to free
  * Return: 0 or other number if fails
  */
-int mini_cd(char **argv, int c, char *n)
+int mini_cd(char **argv, int c, tofree_st tofree, char *n)
 {
+	(void)n;
 	(void)argv;
 	(void)c;
-	(void)n;
+	(void)tofree;
 	return (-1);
 }
 
