@@ -26,9 +26,10 @@ int main(int argc, char **argv)
 		{NULL, NULL}
 	};
 
-	tofree_st tofree[] = {
-		{&header_PATH, &buff_line, &myname}
-	};
+	tofree_st tofree;
+	tofree.f_buff_line = &buff_line;
+	tofree.f_header_PATH = &header_PATH;
+	tofree.f_myname = &myname;
 
 	myname = save_name(argv[0]);
 	header_PATH = create_linkedlist_path(_getenv("PATH"));
@@ -41,9 +42,9 @@ int main(int argc, char **argv)
 		sizes = getline(&buff_line, &BUFF1024, stdin);
 		if (sizes == -1)
 		{
-			free_PATH(tofree->f_header_PATH[0]);
-			free(tofree->f_buff_line[0]);
-			free(tofree->f_myname[0]);
+			free_PATH(tofree.f_header_PATH[0]);
+			free(tofree.f_buff_line[0]);
+			free(tofree.f_myname[0]);
 
 			if (isatty(STDIN_FILENO))
 				write(1, "\n", 1);
@@ -53,7 +54,7 @@ int main(int argc, char **argv)
 
 		if (argv[0] != NULL)
 		{
-			if (find_builtin(argv, declare_builtin, err_count, tofree[0]) == 0)
+			if (find_builtin(argv, declare_builtin, err_count, tofree) == 0)
 			{
 				if (fork() == 0)
 				{
