@@ -132,9 +132,8 @@ void set_argv(char **arguments, char *buff, const char *delim)
 	}
 
 	i = 0;
-	token = strtok(str, delim);
+	token = strtok(buff, delim);
 
-	i++;
     /* walk through other tokens */
     while (token != NULL)
 	{
@@ -173,6 +172,8 @@ void set_argv(char **arguments, char *buff, const char *delim)
 	}
 	conargv++;
 	arguments[conargv] = NULL; */
+	(void)conargv;
+	(void)j;
 }
 
 /**
