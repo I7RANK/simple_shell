@@ -6,7 +6,7 @@
  * @argv: the array of pointers to fill with set_argv
  * Return: 0
  */
-int main(int argc, char **argv) /* nombre del programa y + na */
+int main(int argc, char **argv)
 {
 	path_st *header_PATH = NULL;
 	ssize_t sizes = 0;
@@ -23,13 +23,13 @@ int main(int argc, char **argv) /* nombre del programa y + na */
 	};
 
 	tofree_st tofree;
+
 	tofree.f_buff_line = &buff_line;
 	tofree.f_header_PATH = &header_PATH;
 	tofree.f_myname = &myname;
 	tofree.f_arguments = &arguments;
 
 	arguments = init_arguments();
-	/* myname = save_name(argv[0]); */
 	header_PATH = create_linkedlist_path(_getenv("PATH"));
 
 	while (1)
@@ -49,7 +49,8 @@ int main(int argc, char **argv) /* nombre del programa y + na */
 		set_argv(arguments, buff_line, " \t");
 		if (arguments[0] != NULL)
 		{
-			if (find_builtin(arguments, declare_builtin, err_count, tofree, argv[0]) == 0)
+			if (find_builtin(arguments, declare_builtin,
+					 err_count, tofree, argv[0]) == 0)
 			{
 				if (fork() == 0)
 				{
@@ -110,7 +111,7 @@ int execute_execve(path_st *header, char *const argv[])
 /**
  * set_argv - initialize @argv
  * Description: with the string obtained in the getline() function
- * @argv: it's the array of pointer to fill
+ * @arguments: it's the array of pointer to fill
  * @buff: it's the string teken by getline()
  * @delim: is the delimiter to the @buff
  * Return: void
@@ -157,35 +158,6 @@ void set_argv(char **arguments, char *buff, const char *delim)
 	}
 	conargv++;
 	arguments[conargv] = NULL;
-}
-
-/**
- * save_name - saves the name of this mini_shell
- * @src: it's the name to copy
- * Return: dest
- */
-char *save_name(char *src)
-{
-	char *dest;
-	int i, j = 0;
-
-	for (i = 2; src[i]; i++)
-	{}
-
-	dest = malloc(sizeof(char) * i + 1);
-	if (dest == NULL)
-	{
-		_puts("Error in memory allocation\n");
-		exit(EXIT_FAILURE);
-	}
-
-	for (i = 2; src[i]; i++, j++)
-	{
-		dest[j] = src[i];
-	}
-	dest[j] = '\0';
-
-	return (dest);
 }
 
 /**
