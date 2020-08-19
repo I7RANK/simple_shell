@@ -44,7 +44,7 @@ typedef struct _free
 typedef struct built
 {
 	char *name;
-	int (*func)(char **argv, int c, tofree_st tofree);
+	int (*func)(char **argv, int c, tofree_st tofree, char *n);
 } built_in;
 
 /* ========== PROTOTYPES ========== */
@@ -56,10 +56,10 @@ void free_PATH(path_st *head);
 char *_getenv(const char *name);
 
 /* builtin.c */
-int mini_exit(char **argv, int c, tofree_st tofree);
-int mini_cd(char **argv, int c, tofree_st tofree);
-int mini_env(char **argv, int c, tofree_st tofree);
-int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree);
+int mini_exit(char **argv, int c, tofree_st tofree, char *n);
+int mini_cd(char **argv, int c, tofree_st tofree, char *n);
+int mini_env(char **argv, int c, tofree_st tofree, char *n);
+int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree, char *n);
 
 /* _puts.c */
 int _puts(char *str);

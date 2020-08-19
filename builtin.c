@@ -10,7 +10,7 @@ int _strcmp(char *s1, char *s2);
  * @tofree: the struct that has de pointers to free
  * Return: 0
  */
-int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree)
+int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree, char *n)
 {
 	int i;
 
@@ -18,7 +18,7 @@ int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree)
 	{
 		if (_strcmp(built_names[i].name, argv[0]) == 0)
 		{
-			return (built_names[i].func(argv, c, tofree));
+			return (built_names[i].func(argv, c, tofree, n));
 		}
 	}
 	(void)c;
@@ -32,7 +32,7 @@ int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree)
  * @tofree: the struct that has de pointers to free
  * Return: 0 or other number if fails
  */
-int mini_exit(char **argv, int c, tofree_st tofree)
+int mini_exit(char **argv, int c, tofree_st tofree, char *n)
 {
 	int status = 0, i;
 	char cstring[120];
@@ -44,7 +44,7 @@ int mini_exit(char **argv, int c, tofree_st tofree)
 			if (argv[1][i] < 48 || argv[1][i] > 57)
 			{
 				tostring(cstring, c);
-				_puts(tofree.f_myname[0]);
+				_puts(n);
 				_puts(": ");
 				_puts(cstring);
 				_puts(": ");
@@ -71,7 +71,7 @@ int mini_exit(char **argv, int c, tofree_st tofree)
  * @tofree: the struct that has de pointers to free
  * Return: 0 or other number if fails
  */
-int mini_env(char **argv, int c, tofree_st tofree)
+int mini_env(char **argv, int c, tofree_st tofree, char *n)
 {
 	int i;
 
@@ -88,6 +88,7 @@ int mini_env(char **argv, int c, tofree_st tofree)
 		_puts(__environ[i]);
 		_puts("\n");
 	}
+	(void)n;
 	(void)c;
 	(void)tofree;
 	return (1);
@@ -100,8 +101,9 @@ int mini_env(char **argv, int c, tofree_st tofree)
  * @tofree: the struct that has de pointers to free
  * Return: 0 or other number if fails
  */
-int mini_cd(char **argv, int c, tofree_st tofree)
+int mini_cd(char **argv, int c, tofree_st tofree, char *n)
 {
+	(void)n;
 	(void)argv;
 	(void)c;
 	(void)tofree;
