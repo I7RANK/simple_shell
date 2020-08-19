@@ -36,7 +36,7 @@ This project is meant to recreat a shell (mini shell) with some of the concepts,
 ------------
 
 
-### Description files
+### Description files :open_file_folder:
 | Files | Description |
 | ------------ | ------------ |
 | Builtin.c | Files to find and execute built-in |
@@ -86,7 +86,4 @@ This project is meant to recreat a shell (mini shell) with some of the concepts,
 
 ------------
 
-
-###Links of interest :speech_balloon:
-
-[Tutorial](https://brennan.io/2015/01/16/write-a-shell-in-c/-"link title")  Write a Shell in C
+### End of README.md
