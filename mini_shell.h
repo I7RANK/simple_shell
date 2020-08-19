@@ -27,6 +27,7 @@ typedef struct path
  * @f_header_PATH: linked list that will have the PATH
  * @f_buff_line: string set by get line
  * @f_myname: the name of this program
+ * @f_arguments: the arguments to free
  */
 typedef struct _free
 {
@@ -81,3 +82,4 @@ char **init_arguments(void);
 void free_all(tofree_st tofree);
 
 #endif /* MINI_SHELL_H */
+
