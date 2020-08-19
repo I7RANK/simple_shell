@@ -3,20 +3,21 @@
 /**
  * find_builtin - function to find built-in
  * @argv: arguments to enter
- * @built_names: names of the built-in
+ * @bn: names of the built-in
  * @c: counter variable
  * @tofree: the struct that has de pointers to free
+ * @n: name
  * Return: 0
  */
-int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree, char *n)
+int find_builtin(char **argv, built_in *bn, int c, tofree_st tofree, char *n)
 {
 	int i;
 
-	for (i = 0; built_names[i].name; i++)
+	for (i = 0; bn[i].name; i++)
 	{
-		if (_strcmp(built_names[i].name, argv[0]) == 0)
+		if (_strcmp(bn[i].name, argv[0]) == 0)
 		{
-			return (built_names[i].func(argv, c, tofree, n));
+			return (bn[i].func(argv, c, tofree, n));
 		}
 	}
 	(void)c;
@@ -27,6 +28,7 @@ int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree, ch
  * mini_exit - function to implement exit built-in
  * @argv: arguments
  * @c: the counter to errors
+ * @n: name
  * @tofree: the struct that has de pointers to free
  * Return: 0 or other number if fails
  */
@@ -66,6 +68,7 @@ int mini_exit(char **argv, int c, tofree_st tofree, char *n)
  * mini_env - prints the environment variables of this program
  * @argv: arguments
  * @c: the conter to errors
+ * @n: name
  * @tofree: the struct that has de pointers to free
  * Return: 0 or other number if fails
  */
@@ -96,6 +99,7 @@ int mini_env(char **argv, int c, tofree_st tofree, char *n)
  * mini_cd - function to implement cd built-in
  * @argv: arguments
  * @c: the conter to errors
+ * @n: name
  * @tofree: the struct that has de pointers to free
  * Return: 0 or other number if fails
  */
