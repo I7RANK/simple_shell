@@ -27,7 +27,7 @@ typedef struct path
  * @f_header_PATH: linked list that will have the PATH
  * @f_buff_line: string set by get line
  * @f_myname: the name of this program
- * @f_arguments: the arguments to free
+ * @f_arguments: arguments to free
  */
 typedef struct _free
 {
@@ -52,7 +52,6 @@ typedef struct built
 /* main.c */
 int execute_execve(path_st *header, char *const argv[]);
 void set_argv(char **argv, char *buff, const char *delim);
-char *save_name(char *src);
 void print_error(int count, char *name, char *command);
 
 /* create_linked.c */
@@ -66,13 +65,12 @@ char *_getenv(const char *name);
 int mini_exit(char **argv, int c, tofree_st tofree, char *n);
 int mini_cd(char **argv, int c, tofree_st tofree, char *n);
 int mini_env(char **argv, int c, tofree_st tofree, char *n);
-int find_builtin(char **argv, built_in *built_names, int c, tofree_st tofree, char *n);
+int find_builtin(char **argv, built_in *b, int c, tofree_st t, char *n);
 int _strcmp(char *s1, char *s2);
 
 /* _puts.c */
 int _puts(char *str);
 char *tostring(char *scount, int count);
-
 
 /* THE OTHERS */
 /* init_arguments.c */
