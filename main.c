@@ -11,27 +11,19 @@ int main(int argc, char **argv)
 	path_st *header_PATH = NULL;
 	ssize_t sizes = 0;
 	size_t BUFF1024 = 0;
-	char *buff_line = NULL, *myname = NULL;
+	char *buff_line = NULL, **arguments = NULL;
 	int status, err_count = 0;
-	char **arguments = NULL;
-
 	built_in declare_builtin[] = {
-		{"exit", mini_exit},
-		{"env", mini_env},
-		{"cd", mini_cd},
-		{NULL, NULL}
+		{"exit", mini_exit}, {"env", mini_env},
+		{"cd", mini_cd}, {NULL, NULL}
 	};
-
 	tofree_st tofree;
 
 	tofree.f_buff_line = &buff_line;
 	tofree.f_header_PATH = &header_PATH;
-	tofree.f_myname = &myname;
 	tofree.f_arguments = &arguments;
-
 	arguments = init_arguments();
 	header_PATH = create_linkedlist_path(_getenv("PATH"));
-
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
@@ -41,29 +33,19 @@ int main(int argc, char **argv)
 		if (sizes == -1)
 		{
 			free_all(tofree);
-
 			if (isatty(STDIN_FILENO))
 				write(1, "\n", 1);
 			exit(EXIT_SUCCESS);
 		}
 		set_argv(arguments, buff_line, " \t");
 		if (arguments[0] != NULL)
-		{
 			if (find_builtin(arguments, declare_builtin,
 					 err_count, tofree, argv[0]) == 0)
-			{
 				if (fork() == 0)
-				{
 					if (execute_execve(header_PATH, arguments) != 0)
-					{
 						print_error(err_count, argv[0], arguments[0]);
-					}
-				}
-			}
-		}
 		wait(&status);
 	}
-	(void)myname;
 	(void)argc;
 	return (0);
 }
