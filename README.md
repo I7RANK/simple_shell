@@ -62,6 +62,7 @@ This project is meant to recreat a shell (mini shell) with some of the concepts,
 
 ### Project flowchart
 Flowchar_simple_shell
+https://files.slack.com/files-pri/T0ENXA7A8-F019472CBKN/mini_shell_whiteboard.jpg
 
 ------------
 
