@@ -1,68 +1,42 @@
-./" Manpage for simple_shell
+.\" Manpage for simple_shell
 .TH hsh 1 "August 21st, 2020" "1.0" "simple_shell man"
 .SH NAME
 hsh - Simple command-line interpreter UNIX.
 .SH SYNOPSIS
-./hsh [options] [file]
+hsh [options] [file]
 .SH DESCRIPTION
-.B ./hsh
-A Unix shell is a command-line interpreter or shell that provides a command line user interface for Unix-like operating systems.
 This shell was inspired by the first UNIX shell created by Ken Thompson.
 hsh was developed in Ubuntu 16.04 LTS, compiled with GCC 4.8.4.
-.br
-.SH Invocation:
-Invocate the shell in interactive mode by executing the command:
-.br
-.&
-.RS
-&$ ./hsh.
-.br
-A prompt
-will appear and the user may begin entering commands and executing them by pressing "Enter".
-.br
-Alternatively, a command can be entered and then piped into ./hsh. For example:
-.br
-.&
-&$ echo "hello world" | ./hsh
-.br
-.SH BUILTINS
+
+A prompt will appear and the user may begin entering commands and executing them by pressing "Enter".
+
+In interactive mode, the shell prints a prompt and waits for user input, input is obtained with getline(3) function.
+
+In non-interactive mode, the input to our shell is through the pipes where another command passes a command to execute it in our shell, the prompt is not shown to them, it just tries to execute the command passed and ends.
+
+This shell creates a child process to execute a command. the parent process is the one that displays the prompt and captures the command. When the child executes the command with the execve (2) function, this process ends with the program and the execution of the command begins, so the parent waits for the child to finish to continue.
+
+.SH BUILT-IN
 The following builtin commands are supported:
-.br
-.br
-.B env
-- prints the environment
-.br
-.&
-.B exit
-- exits the program
-.br
-.SH RETURN VALUE
-Always 0 for success and other number if fails.
-.br
-.SH PATH
-It will look inside all directions in PATH env variable for executable.
-.br
-.SH OPTIONS
-.B simple_shell
-Command options will be typed after the main command followed by a space and a '-' symbol.
-.br
-.SH EXAMPLES
-.br
-[command] [options]
-$ ls -l
-.br
+
+exit: exit is a builtin command and makes the shell to exit with a given exit status. A function can be called on a exit before the shell terminates. And when the builtin is called, it causes to exit the shell by calling the exit function, then the exit function terminates the current process with an exit status.
+
+EXIT_SUCCESS - Successful termination
+
+
+EXIT_FAILURE - Unsuccessful termination
+
+
+
+env: The built-in env prints the environment of the current process, that is, the one that is running. This command will print an environment variable per line in the standard output, each line will end with a new line. Prints a list of environment variables without having to modify the currently existing one.
+
 .SH SEE ALSO
-.I peerlearning(2), projectbased(2), fullstack(2), Betty(1)
-.br
+execve(2), exit(3), fork(2), free(3), getline(3), isatty(3), wait(2)
 .SH BUGS
-Single space required after argument.
-.br
-.SH AUTHORS
-.br
-Written by:
-.br
-.B Francisco Guzmán - 1802@holbertonschool.com
-.br
-.B Silena Restrepo - 1961@holbertonschool.com
-.br
-.B Lilibeth Tabares - 1762@holbertonschool.com
+Type a command and press Ctrl + D twice (must be pressed twice for the shell to continue)
+.SH AUTHOR
+Silena Restrepo - 1961@holbertonschool.com
+
+Francisco Guzmán - 1802@holbertonschool.com
+
+Lilibeth Tabares - 1762@holbertonschool.com
