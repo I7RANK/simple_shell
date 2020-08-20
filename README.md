@@ -62,7 +62,8 @@ This project is meant to recreat a shell (mini shell) with some of the concepts,
 
 ### Project flowchart
 Flowchar_simple_shell
-https://files.slack.com/files-pri/T0ENXA7A8-F019472CBKN/mini_shell_whiteboard.jpg
+[![Flowchart_simple_shell](https://raw.githubusercontent.com/I7RANK/simple_shell/master/flowchart.jpg "Flowchart_simple_shell")](https://raw.githubusercontent.com/I7RANK/simple_shell/master/flowchart.jpg "Flowchart_simple_shell")
+
 
 ------------
 
