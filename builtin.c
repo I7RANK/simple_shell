@@ -52,7 +52,7 @@ int mini_exit(char **argv, int c, tofree_st tofree, char *n)
 				_puts(argv[1]);
 				_puts("\n");
 
-				return (-1);
+				exit(2);
 			}
 		}
 		for (i = 0; argv[1][i]; i++)

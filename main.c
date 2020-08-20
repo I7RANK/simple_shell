@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 		wait(&status);
 	}
 	(void)argc;
-	return (0);
+	return (WEXITSTATUS(status));
 }
 
 /**
