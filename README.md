@@ -1,15 +1,23 @@
 ## Simple_shell
-This project is meant to recreat a shell (mini shell) with some of the concepts, functions and system calls that we have gotten during this period of time.
+This project is meant to recreat a shell (mini shell) with some of the concepts, functions and system calls that we studied during this period of time.
 
 ------------
+### Download the repository
 
+Git clone `https://github.com/I7RANK`
+
+------------
 
 ### Compilate files are compiled this way:
 `gcc -Wall -Werror -Wextra -pedantic *.c -o hsh`
 
 ------------
 
+### RUN
 
+Usage ./hsh
+
+------------
 ### Some of the system calls and functions used in this project:
 - execve
 - exit
@@ -42,7 +50,7 @@ This project is meant to recreat a shell (mini shell) with some of the concepts,
 
 ### Examples
 
-
+####
 `$ ls -la` <br/>
 `total 44`  <br/>
 `drwxr-xr-x 1 runner runner 126 Aug 17 00:57 .` <br/>
@@ -57,12 +65,13 @@ This project is meant to recreat a shell (mini shell) with some of the concepts,
 
 `$ pwd /home/runner/cIsFun`
 
+
 ------------
 
 
 ### Project flowchart
 Flowchar_simple_shell
-[![Flowchart_simple_shell](https://raw.githubusercontent.com/I7RANK/simple_shell/master/flowchart.jpg "Flowchart_simple_shell")](https://raw.githubusercontent.com/I7RANK/simple_shell/master/flowchart.jpg "Flowchart_simple_shell")
+[![Flowchart_simple_shell](https://github.com/I7RANK/simple_shell/blob/master/flowchart%20(1).jpg "Flowchart_simple_shell")](https://github.com/I7RANK/simple_shell/blob/master/flowchart%20(1).jpg "Flowchart_simple_shell")
 
 
 ------------
