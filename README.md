@@ -40,9 +40,15 @@ Usage ./hsh
 | ------------ | ------------ |
 | Builtin.c  |  Files to find and execute built-in |
 | create_linked.c  |  Linked list to manage the PATH |
-|main.c	| Main functions, to print the prompt, to execute execve and to set the arguments |
-|mini_shell.h | Header file |
+| main.c	| Main functions, to print the prompt, to execute execve and to set the arguments |
+| mini_shell.h | Header file |
 | _puts.c | copy of puts functions and function to change int to string |
+| init.arguments. c | to allocate memory to the arguments |
+| free_all.c | to free all the memory allocated |
+| AUTHORS | file with the authors |
+| README.md | the README  of the repo |
+| flowchart(1).png | image of the flowchart |
+| man_1_simple_shell | man of this mini_shell |
 
 
 ------------
