@@ -1,7 +1,5 @@
 #include "mini_shell.h"
 
-char *set_buff(size_t *BUFF1024, tofree_st tofree);
-
 /**
  * main - main function
  * @argc: number of arguments but for now not passed arguments
@@ -11,18 +9,26 @@ char *set_buff(size_t *BUFF1024, tofree_st tofree);
 int main(int argc, char **argv)
 {
 	path_st *header_PATH = NULL;
+	ssize_t sizes = 0;
 	size_t BUFF1024 = 0;
-	char *buff_line = NULL, **arguments = NULL;
+	char *buff_line = NULL, *myname = NULL;
 	int status, err_count = 0;
+	char **arguments = NULL;
+
 	built_in declare_builtin[] = {
-		{"exit", mini_exit}, {"env", mini_env},
-		{"cd", mini_cd}, {NULL, NULL}
+		{"exit", mini_exit},
+		{"env", mini_env},
+		{"cd", mini_cd},
+		{NULL, NULL}
 	};
+
 	tofree_st tofree;
 
 	tofree.f_buff_line = &buff_line;
 	tofree.f_header_PATH = &header_PATH;
+	tofree.f_myname = &myname;
 	tofree.f_arguments = &arguments;
+
 	arguments = init_arguments();
 	header_PATH = create_linkedlist_path(_getenv("PATH"));
 
@@ -31,9 +37,15 @@ int main(int argc, char **argv)
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2);
 		err_count++;
+		sizes = getline(&buff_line, &BUFF1024, stdin);
+		if (sizes == -1)
+		{
+			free_all(tofree);
 
-		buff_line = set_buff(&BUFF1024, tofree);
-
+			if (isatty(STDIN_FILENO))
+				write(1, "\n", 1);
+			exit(EXIT_SUCCESS);
+		}
 		set_argv(arguments, buff_line, " \t");
 		if (arguments[0] != NULL)
 		{
@@ -51,36 +63,9 @@ int main(int argc, char **argv)
 		}
 		wait(&status);
 	}
+	(void)myname;
 	(void)argc;
 	return (0);
-}
-
-/**
- * set_buff - sets the buff_line with getline()
- * @BUFF1024: the size of buff_line
- * @tofree: the pointers to freee
- *
- * Return: the pointer to buff line
-*/
-char *set_buff(size_t *BUFF1024, tofree_st tofree)
-{
-	ssize_t sizes = 0;
-	char *buff_line = NULL;
-
-	sizes = getline(&buff_line, BUFF1024, stdin);
-	if (sizes == -1)
-	{
-		free_all(tofree);
-		free(buff_line);
-
-		if (isatty(STDIN_FILENO))
-		{
-			write(1, "\n", 1);
-		}
-		exit(EXIT_SUCCESS);
-	}
-
-	return (buff_line);
 }
 
 /**
