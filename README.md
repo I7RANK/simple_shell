@@ -15,7 +15,7 @@ Git clone `https://github.com/I7RANK`
 
 ### RUN
 
-Usage ./hsh
+Usage `./hsh`
 
 ------------
 ### Some of the system calls and functions used in this project:
@@ -69,7 +69,9 @@ Usage ./hsh
 `-rw-r--r-- 1 runner runner 3285 Aug 16 22:44 main.c` <br/>
 `-rw-r--r-- 1 runner runner 1084 Aug 16 22:44 mini_shell.h`  <br/>
 
-`$ pwd /home/runner/cIsFun`
+
+`$ pwd /home/runner/cIsFun` <br/>
+
 
 
 ------------
