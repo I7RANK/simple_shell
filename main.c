@@ -22,7 +22,6 @@ int main(int argc, char **argv)
 
 	tofree.f_buff_line = &buff_line;
 	tofree.f_header_PATH = &header_PATH;
-	/* tofree.f_myname = &myname; */ /* update struct */
 	tofree.f_arguments = &arguments;
 	arguments = init_arguments();
 	header_PATH = create_linkedlist_path(_getenv("PATH"));
@@ -72,6 +71,7 @@ char *set_buff(size_t *BUFF1024, tofree_st tofree)
 	if (sizes == -1)
 	{
 		free_all(tofree);
+		free(buff_line);
 
 		if (isatty(STDIN_FILENO))
 		{
