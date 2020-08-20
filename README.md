@@ -70,8 +70,9 @@ Usage `./hsh`
 `-rw-r--r-- 1 runner runner 1084 Aug 16 22:44 mini_shell.h`  <br/>
 
 
-`$ pwd /home/runner/cIsFun` <br/>
-
+`$ pwd` <br/>
+`/home/runner/cIsFun` <br/>
+`$ ` <br/>
 
 
 ------------
